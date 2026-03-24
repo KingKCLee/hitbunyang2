@@ -54,6 +54,15 @@ export interface JobPosting {
   commission?: string;
   location?: string;
   companyName?: string;
+  // Hit Bunyang Specifics
+  hitIndex: number; // 0-100
+  adTier: 'hit' | 'premium' | 'standard' | 'free';
+  isHot?: boolean;
+  isNew?: boolean;
+  isUrgent?: boolean;
+  inquiryCount?: number;
+  shareCount?: number;
+  reviewRating?: number;
 }
 
 export interface JobApplication {
@@ -80,8 +89,30 @@ export interface RecruitmentPost {
 }
 
 export interface Stats {
-  todayUsers: number;
-  totalUsers: number;
-  todayVisitors: number;
   todayNewSites: number;
+  totalSites: number;
+  nowConnected: number;
+}
+
+export interface CommunityPost {
+  id: string;
+  title: string;
+  content: string;
+  authorUid: string;
+  authorName: string;
+  category: 'review' | 'free' | 'tip' | 'qna';
+  createdAt: any;
+  views: number;
+  commentCount: number;
+  likes: number;
+}
+
+export interface NewsItem {
+  id: string;
+  title: string;
+  summary: string;
+  imageUrl: string;
+  source: string;
+  url: string;
+  createdAt: any;
 }

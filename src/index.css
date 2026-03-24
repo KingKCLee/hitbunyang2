@@ -3,6 +3,9 @@
 
 @theme {
   --font-sans: "Noto Sans KR", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-hit-red: #FF3B30;
+  --color-hit-navy: #1C2D5A;
+  --color-hit-blue: #007AFF;
 }
 
 @layer base {

@@ -161,7 +161,7 @@ export default function PostJob({ user }: PostJobProps) {
                       id="image-upload" 
                       multiple 
                       accept="image/*" 
-                      className="hidden" 
+                      className="absolute inset-0 w-0 h-0 opacity-0" 
                       onChange={(e) => {
                         const files = e.target.files;
                         if (files && files.length > 0) {
