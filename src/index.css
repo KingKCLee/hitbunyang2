@@ -3,9 +3,10 @@
 
 @theme {
   --font-sans: "Noto Sans KR", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-hit-red: #FF3B30;
-  --color-hit-navy: #1C2D5A;
-  --color-hit-blue: #007AFF;
+  --color-hit-red: #E61E2B; /* More vibrant brand red */
+  --color-hit-navy: #0F172A; /* Deeper navy for luxury feel */
+  --color-hit-blue: #3B82F6;
+  --color-hit-gold: #D4AF37; /* For premium accents */
 }
 
 @layer base {

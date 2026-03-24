@@ -104,7 +104,7 @@ export default function Home() {
           <div className="flex items-end justify-between mb-12">
             <div>
               <h2 className="text-3xl font-black text-hit-navy mb-2 flex items-center gap-2">
-                <Trophy className="text-hit-red" /> 히트 TOP 5
+                <Trophy className="text-hit-gold" /> 히트 TOP 5
               </h2>
               <p className="text-gray-500 font-medium">실시간 히트지수 기반 가장 핫한 현장 랭킹</p>
             </div>
@@ -179,7 +179,7 @@ export default function Home() {
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${ad.tier === 'hit' ? 'bg-hit-red text-white' : ad.tier === 'premium' ? 'bg-hit-navy text-white' : 'bg-gray-200 text-gray-600'}`}>
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${ad.tier === 'hit' ? 'bg-hit-red text-white' : ad.tier === 'premium' ? 'bg-hit-gold text-white' : 'bg-gray-200 text-gray-600'}`}>
                       {ad.tier} AD
                     </span>
                   </div>

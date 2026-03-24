@@ -64,7 +64,7 @@ const Ranking = () => {
             animate={{ opacity: 1, x: 0 }}
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="bg-hit-red p-2 rounded-xl shadow-lg shadow-hit-red/20">
+              <div className="bg-hit-gold p-2 rounded-xl shadow-lg shadow-hit-gold/20">
                 <Trophy size={24} className="text-white" />
               </div>
               <h1 className="text-4xl font-black tracking-tighter text-hit-navy">히트랭킹</h1>
@@ -126,7 +126,7 @@ const Ranking = () => {
                   <div className="flex items-center justify-center gap-6 mb-8">
                     <div className="text-center">
                       <div className="text-xs font-bold text-gray-400 mb-1">HIT</div>
-                      <div className="text-lg font-black text-hit-red">{job.hitIndex}</div>
+                      <div className="text-lg font-black text-hit-gold">{job.hitIndex}</div>
                     </div>
                     <div className="w-px h-8 bg-gray-100"></div>
                     <div className="text-center">

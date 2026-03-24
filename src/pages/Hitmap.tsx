@@ -93,7 +93,7 @@ const Hitmap = () => {
                     style={{ gridColumn: r.x, gridRow: r.y }}
                     className={`relative rounded-2xl p-2 flex flex-col items-center justify-center transition-all ${
                       selectedRegion === r.name 
-                        ? 'ring-4 ring-hit-red bg-hit-red shadow-2xl shadow-hit-red/50 z-10' 
+                        ? 'ring-4 ring-hit-gold bg-hit-gold shadow-2xl shadow-hit-gold/50 z-10' 
                         : r.hitIndex > 85 
                           ? 'bg-hit-red/40 hover:bg-hit-red/60 border border-hit-red/30' 
                           : 'bg-white/10 hover:bg-white/20 border border-white/5'

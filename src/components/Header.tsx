@@ -22,7 +22,7 @@ export default function Header({ user, profile }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="히트분양" className="h-8 w-auto" referrerPolicy="no-referrer" />
+            <img src="https://kingkclee.github.io/hitbunyang2/logo.png" alt="히트분양" className="h-8 w-auto" referrerPolicy="no-referrer" />
             <span className="text-xl font-black text-hit-navy tracking-tighter hidden sm:inline">히트분양</span>
           </Link>
 
