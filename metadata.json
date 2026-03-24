@@ -1,0 +1,7 @@
+{
+  "name": "히트분양",
+  "description": "분양상담사 구인구직 1위 서비스 히트분양. 더블유부동산에서 제공하는 가장 빠르고 정확한 분양 현장 정보.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

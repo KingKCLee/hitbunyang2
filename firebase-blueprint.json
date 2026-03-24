@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["agent", "company"], "description": "User role: agent (job seeker) or company (recruiter)" },
+        "phone": { "type": "string" },
+        "companyName": { "type": "string" },
+        "bio": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "job": {
+      "title": "Job Posting",
+      "description": "Recruitment posting for real estate agents",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string", "description": "Markdown content of the job posting" },
+        "location": { "type": "string", "description": "City or Region" },
+        "category": { "type": "string", "description": "Type of real estate (Apartment, Office, etc.)" },
+        "commission": { "type": "string", "description": "Commission details" },
+        "companyName": { "type": "string" },
+        "authorUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "views": { "type": "integer" },
+        "status": { "type": "string", "enum": ["open", "closed"] }
+      },
+      "required": ["title", "content", "location", "authorUid", "createdAt"]
+    },
+    "application": {
+      "title": "Job Application",
+      "description": "Application from an agent to a job posting",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "jobId": { "type": "string" },
+        "applicantUid": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "accepted", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["jobId", "applicantUid", "createdAt"]
+    },
+    "post": {
+      "title": "Community Post",
+      "description": "A post in the community forum",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "authorUid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "views": { "type": "integer" },
+        "likes": { "type": "integer" }
+      },
+      "required": ["title", "content", "authorUid", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "User profiles"
+    },
+    "/jobs/{jobId}": {
+      "schema": "job",
+      "description": "Job postings"
+    },
+    "/applications/{applicationId}": {
+      "schema": "application",
+      "description": "Job applications"
+    },
+    "/posts/{postId}": {
+      "schema": "post",
+      "description": "Community posts"
+    }
+  }
+}
