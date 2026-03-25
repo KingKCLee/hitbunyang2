@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { JobPosting } from '../types';
-import { Flame, TrendingUp, MapPin, ChevronRight, Building2, Users, Eye, Search } from 'lucide-react';
-import { motion } from 'motion/react';
+import { Flame, TrendingUp, MapPin, ChevronRight, Building2, Users, Eye, Search, Map as MapIcon, Grid } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import KakaoMap from '../components/KakaoMap';
 
 // Region grid layout (simulated map of Korea)
 const regions = [
@@ -30,6 +31,7 @@ const Hitmap = () => {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -71,44 +73,83 @@ const Hitmap = () => {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-6"
             >
-              <div className="flex items-center gap-3 mb-2">
-                <div className="bg-hit-red p-2 rounded-xl">
-                  <Flame size={24} className="text-white" fill="currentColor" />
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="bg-hit-red p-2 rounded-xl">
+                    <Flame size={24} className="text-white" fill="currentColor" />
+                  </div>
+                  <h1 className="text-4xl font-black tracking-tighter">히트맵</h1>
                 </div>
-                <h1 className="text-4xl font-black tracking-tighter">히트맵</h1>
+                <p className="text-gray-400 font-bold">전국 분양 현장의 실시간 관심도와 트렌드를 한눈에 확인하세요.</p>
               </div>
-              <p className="text-gray-400 font-bold">전국 분양 현장의 실시간 관심도와 트렌드를 한눈에 확인하세요.</p>
+
+              <div className="flex bg-white/10 p-1 rounded-2xl border border-white/10">
+                <button 
+                  onClick={() => setViewMode('grid')}
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-black transition-all ${viewMode === 'grid' ? 'bg-hit-red text-white shadow-lg shadow-hit-red/20' : 'text-gray-400 hover:text-white'}`}
+                >
+                  <Grid size={16} />
+                  그리드뷰
+                </button>
+                <button 
+                  onClick={() => setViewMode('map')}
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-black transition-all ${viewMode === 'map' ? 'bg-hit-red text-white shadow-lg shadow-hit-red/20' : 'text-gray-400 hover:text-white'}`}
+                >
+                  <MapIcon size={16} />
+                  지도뷰
+                </button>
+              </div>
             </motion.div>
 
-            <div className="bg-white/5 rounded-[3rem] p-12 border border-white/10 relative overflow-hidden flex items-center justify-center">
-              {/* Grid Map */}
-              <div className="grid grid-cols-6 gap-3 w-full max-w-lg aspect-[6/10]">
-                {regionHeat.map((r) => (
-                  <motion.button
-                    key={r.id}
-                    whileHover={{ scale: 1.1, zIndex: 10 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setSelectedRegion(r.name)}
-                    style={{ gridColumn: r.x, gridRow: r.y }}
-                    className={`relative rounded-2xl p-2 flex flex-col items-center justify-center transition-all ${
-                      selectedRegion === r.name 
-                        ? 'ring-4 ring-hit-gold bg-hit-gold shadow-2xl shadow-hit-gold/50 z-10' 
-                        : r.hitIndex > 85 
-                          ? 'bg-hit-red/40 hover:bg-hit-red/60 border border-hit-red/30' 
-                          : 'bg-white/10 hover:bg-white/20 border border-white/5'
-                    }`}
+            <div className="bg-white/5 rounded-[3rem] p-4 md:p-12 border border-white/10 relative overflow-hidden min-h-[600px] flex items-center justify-center">
+              <AnimatePresence mode="wait">
+                {viewMode === 'grid' ? (
+                  <motion.div 
+                    key="grid"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="grid grid-cols-6 gap-3 w-full max-w-lg aspect-[6/10]"
                   >
-                    <span className="text-[11px] font-black mb-0.5">{r.name}</span>
-                    <div className="flex items-center gap-0.5">
-                      <span className={`text-[9px] font-bold ${r.hitIndex > 80 ? 'text-white' : 'text-gray-400'}`}>
-                        {r.hitIndex}
-                      </span>
-                      {r.hitIndex > 90 && <Flame size={8} className="text-white animate-pulse" fill="currentColor" />}
-                    </div>
-                  </motion.button>
-                ))}
-              </div>
+                    {regionHeat.map((r) => (
+                      <motion.button
+                        key={r.id}
+                        whileHover={{ scale: 1.1, zIndex: 10 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => setSelectedRegion(r.name)}
+                        style={{ gridColumn: r.x, gridRow: r.y }}
+                        className={`relative rounded-2xl p-2 flex flex-col items-center justify-center transition-all ${
+                          selectedRegion === r.name 
+                            ? 'ring-4 ring-hit-gold bg-hit-gold shadow-2xl shadow-hit-gold/50 z-10' 
+                            : r.hitIndex > 85 
+                              ? 'bg-hit-red/40 hover:bg-hit-red/60 border border-hit-red/30' 
+                              : 'bg-white/10 hover:bg-white/20 border border-white/5'
+                        }`}
+                      >
+                        <span className="text-[11px] font-black mb-0.5">{r.name}</span>
+                        <div className="flex items-center gap-0.5">
+                          <span className={`text-[9px] font-bold ${r.hitIndex > 80 ? 'text-white' : 'text-gray-400'}`}>
+                            {r.hitIndex}
+                          </span>
+                          {r.hitIndex > 90 && <Flame size={8} className="text-white animate-pulse" fill="currentColor" />}
+                        </div>
+                      </motion.button>
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.div 
+                    key="map"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="w-full h-[600px] rounded-[2rem] overflow-hidden"
+                  >
+                    <KakaoMap address="서울특별시 강남구" title="히트분양 핫플레이스" className="w-full h-full" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Legend */}
               <div className="absolute bottom-8 left-8 flex items-center gap-6">

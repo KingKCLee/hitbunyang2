@@ -103,7 +103,7 @@ export default function Sites() {
                         <button 
                           key={j}
                           onClick={() => setSelectedJobType(j)}
-                          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${selectedJobType === j ? 'bg-hit-blue text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${selectedJobType === j ? 'bg-hit-gold text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
                         >
                           {j}
                         </button>
@@ -140,7 +140,7 @@ export default function Sites() {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex flex-col gap-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-black text-hit-blue uppercase tracking-widest">{job.location}</span>
+                    <span className="text-[10px] font-black text-hit-red uppercase tracking-widest">{job.location}</span>
                     <span className="text-[10px] font-bold text-gray-300">|</span>
                     <span className="text-[10px] font-bold text-gray-400">{job.category}</span>
                   </div>
